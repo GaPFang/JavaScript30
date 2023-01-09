@@ -22,6 +22,22 @@
 
   <style>
 
+    html {
+      --spacing: 10px;
+      --blur: 10px;
+      --base: #ffc600;
+    }
+
+    .hl {
+      color: var(--base);
+    }
+
+    img {
+      padding: var(--spacing);
+      background-color: var(--base);
+      filter: blur(var(--blur));
+    }
+
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -46,26 +62,14 @@
 
   <script>
 
-    const render = (input) => {
-      const img = document.querySelector("img");
-      console.log(input.target.name);
-      switch (input.target.name) {
-        case "spacing":
-          console.log(img);
-          img.style.padding = input.target.value + "px";
-          break;
-        case "blur":
-          console.log(img);
-          img.style.filter = "blur(" + input.target.value + ")";
-          break;
-        case "base":
-          console.log(img);
-          img.style.backgroundColor = input.target.value;
-          document.querySelector(".hl").style.color = input.target.value;
-      }
+    const inputs = document.querySelectorAll("input");
+
+    function changeHandler() {
+      const unit = this.dataset.sizing || "";
+      document.documentElement.style.setProperty("--" + this.name, this.value + unit);
     }
-    
-    document.querySelectorAll("input").forEach(input => input.addEventListener("change", render));
+
+    inputs.forEach(input => input.addEventListener("change", changeHandler))    
 
   </script>
 
