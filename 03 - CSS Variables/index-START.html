@@ -45,6 +45,28 @@
   </style>
 
   <script>
+
+    const render = (input) => {
+      const img = document.querySelector("img");
+      console.log(input.target.name);
+      switch (input.target.name) {
+        case "spacing":
+          console.log(img);
+          img.style.padding = input.target.value + "px";
+          break;
+        case "blur":
+          console.log(img);
+          img.style.filter = "blur(" + input.target.value + ")";
+          break;
+        case "base":
+          console.log(img);
+          img.style.backgroundColor = input.target.value;
+          document.querySelector(".hl").style.color = input.target.value;
+      }
+    }
+    
+    document.querySelectorAll("input").forEach(input => input.addEventListener("change", render));
+
   </script>
 
 </body>
