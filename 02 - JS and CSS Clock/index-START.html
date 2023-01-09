@@ -57,16 +57,41 @@
     }
 
     .hand {
-      width: 50%;
-      height: 6px;
+      width: 6px;/* 50%; */
+      height: 50%;/* 6px; */
       background: black;
       position: absolute;
-      top: 50%;
+      left: 50%;
+      transition: .05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+      transform-origin: bottom;
     }
 
   </style>
 
   <script>
+
+    const setClock = () => {
+      const now = new Date();
+      const secDegree = now.getSeconds() * 6;
+      const minDegree = secDegree / 60 + now.getMinutes() * 6;
+      const hourDegree = minDegree / 12 + now.getHours() * 30;
+
+      document.querySelector(".hour-hand").style.transform = `rotate(${hourDegree}deg)`;
+      document.querySelector(".min-hand").style.transform = `rotate(${minDegree}deg)`;
+      document.querySelector(".second-hand").style.transform = `rotate(${secDegree}deg)`;
+
+    }
+
+    const repeat = () => {
+      setClock();
+      setTimeout(repeat, 1000);
+    }
+    
+    setClock();
+    repeat();
+
+    // setInterval(setClock, 1000);
 
 
   </script>
