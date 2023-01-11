@@ -7,6 +7,50 @@
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
+    let drawing = false;
+    let x, y;
+
+    const canvas = document.querySelector("#draw");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext("2d");
+    let unit = -1;
+    ctx.lineWidth = 50;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    let colorDeg = 0;
+
+    canvas.addEventListener("mousedown", (e) => {
+      drawing = true;
+      [x, y] = [e.offsetX, e.offsetY];
+    })
+    canvas.addEventListener("mouseenter", (e) => {
+      [x, y] = [e.offsetX, e.offsetY];
+    })
+    canvas.addEventListener("mousemove", (e) => {
+      if (!drawing) return;
+      ctx.strokeStyle = `hsl(${colorDeg}, 100%, 50%)`;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      [x, y] = [e.offsetX, e.offsetY];
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      // colorDeg += 1;
+      // ctx.lineWidth += unit;
+      // if (ctx.lineWidth === 1) unit = 1;
+      // if (ctx.lineWidth === 50) unit = -1;   //畫面外不改變粗細和顏色
+    })
+    window.addEventListener("mousemove", (e) => {
+      if (!drawing) return;
+      colorDeg += 1;
+      ctx.lineWidth += unit;
+      if (ctx.lineWidth === 1) unit = 1;
+      if (ctx.lineWidth === 50) unit = -1;      //畫面外會改變粗細和顏色
+    })
+    window.addEventListener("mouseup", () => {
+      drawing = false;
+    })
+
 </script>
 
 <style>
