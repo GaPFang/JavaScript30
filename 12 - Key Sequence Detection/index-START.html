@@ -7,6 +7,24 @@
 </head>
 <body>
 <script>
+  let array = [];
+  const ans = "banana"
+
+  function keyHandler(e) {
+    array.push(e.key);
+    array.splice(0, array.length - ans.length);
+
+    console.log(e.key);
+    console.log(array);
+
+    if (array.join("") === ans) {
+      console.log('DING DING!');
+      cornify_add();
+    }
+  }
+
+  window.addEventListener("keydown", keyHandler);
+
 </script>
 </body>
 </html>
